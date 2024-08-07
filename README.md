@@ -16,9 +16,7 @@ docker run -p 8080:8080 server
 pip install panel transformers
 pip install ctransformers
 
-pip install nvidia-pyindex
-pip install nvidia-cublas-cu11
-pip install nvidia-cuda-runtime-cu11
-
 pip uninstall ctransformers --yes
 CT_METAL=1 pip install ctransformers --no-binary ctransformers
+
+pip install mistralai
