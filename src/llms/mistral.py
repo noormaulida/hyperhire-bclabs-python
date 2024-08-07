@@ -1,30 +1,24 @@
-from ctransformers import AutoConfig, AutoModelForCausalLM, Config
+from mistralai import Mistral
 
 SYSTEM_INSTRUCTIONS = "You're a helpful assistant."
-mystral_model_file = "mistral-7b-instruct-v0.1.Q2_K.gguf"
+model = "mistral-large-latest"
+api_key = "ULUoH7kuftwlI2XfMgXajhh6CwkjZ2JX"
+
 
 def init_mistral():
-    config = AutoConfig(
-        config=Config(
-            temperature=0.9, max_new_tokens=2048, context_length=2048, gpu_layers=1
-        ),
-    )
-    return AutoModelForCausalLM.from_pretrained(
-        "TheBloke/Mistral-7B-Instruct-v0.1-GGUF",
-        model_file=mystral_model_file,
-        config=config,
-    )
+    return Mistral(api_key=api_key)
 
 
-def generate_mistral_prompt(history):
-    history = [message for message in history if message.user != "System"]
-    prompt = ""
-    for i, message in enumerate(history):
-        if i == 0:
-            prompt += f"<s>[INST]{SYSTEM_INSTRUCTIONS} {message.object}[/INST]"
-        else:
-            if message.user == "Mistral":
-                prompt += f"{message.object}</s>"
-            else:
-                prompt += f"""[INST]{message.object}[/INST]"""
-    return prompt
+def send_request_mistral(client, message):
+    messages = [
+        {
+            "role": "user",
+            "content": message.object,
+        },
+    ]
+    
+    chat_response = client.chat.complete(
+       model=model,
+       messages=messages,
+    )
+    return chat_response.choices[0].message.content
