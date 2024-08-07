@@ -13,7 +13,7 @@ def send_request_mistral(client, message):
     messages = [
         {
             "role": "user",
-            "content": message.object,
+            "content": message,
         },
     ]
     
