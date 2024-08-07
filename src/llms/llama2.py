@@ -12,6 +12,9 @@ def generate_llama2_prompt(message):
     prompt = f"""<s>[INST] <<SYS>>
     {SYSTEM_INSTRUCTIONS}
     <</SYS>>
-    {message.object} [/INST]"""
+    {message} [/INST]"""
     
     return prompt
+
+def extract_llama2_response(response):
+    return response["choices"][0]["text"]
