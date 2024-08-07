@@ -1,5 +1,5 @@
 # Data model related
-llama2/models/llama-2-7b-chat.Q2_K.gguf
+src/models/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
