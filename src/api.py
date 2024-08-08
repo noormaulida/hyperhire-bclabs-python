@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from middleware import PrefixMiddleware
-from llms.llama2 import init_llama2, generate_llama2_prompt, extract_llama2_response
-from llms.mistral import init_mistral, send_request_mistral
+from llms.llama2 import Llama2Client
+from llms.mistral import MistralClient
 
 
 # Create a Flask object
@@ -10,24 +10,29 @@ app.wsgi_app = PrefixMiddleware(app.wsgi_app, prefix='/api/v1')
 
 @app.route('/llms', methods=['POST'])
 def process_llm_response():
-    selected_model = request.json['selected_model']
-    question = request.json['question']
+    selected_model = request.json['model']
+    questions = request.json['questions']
     
     try:
         if selected_model == "llama2" or selected_model == "mistral":
+            results = []
             if selected_model == "llama2":
-                model = init_llama2()
-                prompt = generate_llama2_prompt(question)
-                output = model(prompt, max_tokens=2048)
-                response = extract_llama2_response(output)
+                client = Llama2Client()
+                for question in questions:    
+                    prompt = client.generate_prompt(question)
+                    output = client.model(prompt, max_tokens=2048)
+                    response = client.extract_response(output)
+                    results.append({'question':question, 'answer':response})
             else:
-                model = init_mistral()
-                output = send_request_mistral(model, question)
-                response = ""
-                for token in output:
-                    response += token
+                client = MistralClient()
+                for question in questions:    
+                    output = client.send_request(question)
+                    response = ""
+                    for token in output:
+                        response += token
+                    results.append({'question':question, 'answer':response})
             
-            return jsonify({"status": "OK", "selected_model": selected_model, "question": question, "response": response}), 200
+            return jsonify({"status": "OK", "model": selected_model, "results": results}), 200
 
         else:
             return jsonify({"error": "LLM model not found"}), 400
