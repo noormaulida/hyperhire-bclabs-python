@@ -1,22 +1,23 @@
-# hyperhire-bclabs-python
+# Distributed LLM Assessment
 
-Distributed LLM Assignment Python
+This projects build for Distributed LLM Assesment using Python.
 
-## Dependencies
+## Libraries:
 
-- Python 3.12
+- llama-cpp-python
+- Flask
+- mistralai
+- Panel
+- Other Libraries
 
-## Notes
+## Documentation
 
-https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/tree/main
+- [Postman API Documentation](https://www.postman.com/nrmld/workspace/hyperhire-distributed-llm-assignment-noor-maulida/folder/158398-ee565332-2fe8-4a11-a5f3-ac7236d8db2a?action=share&source=copy-link&creator=158398&ctx=documentation)
 
-docker build -t server .
-docker run -p 8080:8080 server
+## Short Brief of The Program
 
-pip install panel transformers
-pip install ctransformers
+[Short Brief](https://github.com/noormaulida/hyperhire-bclabs-python/wiki/Short-Brief-about-Python-Application)
 
-pip uninstall ctransformers --yes
-CT_METAL=1 pip install ctransformers --no-binary ctransformers
+## Installation
 
-pip install mistralai
+[Installation Wiki](https://github.com/noormaulida/hyperhire-bclabs-python/wiki/Installation-Wiki)
