@@ -1,12 +1,12 @@
-# Distributed LLM Assessment
+# Distributed LLM Backend
 
-This projects build for Distributed LLM Assesment using Python.
+This projects build for Distributed LLM Backend using Python.
 
 ## Libraries:
 
-- llama-cpp-python
+- llama-cpp-python (Llama AI Integration)
 - Flask
-- mistralai
+- mistralai (Mistral AI Integration)
 - Panel
 - Other Libraries
 
